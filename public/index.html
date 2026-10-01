@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartBasket 3B - Prototipo</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background: #f4f4f4; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 90%; max-width: 520px; overflow: hidden; }
+    .header { background: #d32f2f; color: white; padding: 16px 24px; }
+    .content { padding: 24px; color: #333; }
+    .badge { background: #2e7d32; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; }
+    ul { padding-left: 20px; line-height: 1.6; }
+    code { background: #eee; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h2 style="margin:0;">Tiendas 3B</h2>
+      <p style="margin:4px 0 0; opacity:0.9;">Módulo SmartBasket (Click & Collect Asíncrono)</p>
+    </div>
+    <div class="content">
+      <p><strong>Estado del Servicio PaaS:</strong> <span class="badge">Activo / Operacional</span></p>
+      <p>Simulador de Catálogo Activo para Presupuesto Inteligente por IA:</p>
+      <ul id="catalogo"></ul>
+      <hr>
+      <p style="font-size:13px; color:#666;">
+        <strong>Webhook WhatsApp:</strong> <code>/webhook</code> (Listo para Meta Cloud API)
+      </p>
+    </div>
+  </div>
+  <script>
+    fetch('/api/catalogo')
+      .then(res => res.json())
+      .then(data => {
+        const ul = document.getElementById('catalogo');
+        data.forEach(p => {
+          const li = document.createElement('li');
+          li.textContent = `${p.nombre} — $${p.precio.toFixed(2)} MXN`;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
